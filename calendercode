@@ -1,0 +1,121 @@
+# include <stdio.h>
+typedef struct {
+    int month;
+    int year;
+}date;
+date a;
+int odd_sum;
+int leap(int);
+int odd_month(int);
+int odd_year();
+int main(){
+    printf("********WELCOME TO CALENDAR GENERATION PROGRAM************");
+    char ch;
+    do{
+    odd_sum=0;
+    printf("\nEnter month: ");
+    scanf("%d",&a.month);
+    if(a.month>0 && a.month<=12 ){
+    printf("Enter year: ");
+    scanf("%d",&a.year);
+    for(int i=1;i<a.month;i++){
+        odd_sum=odd_sum+(odd_month(i)%7);
+    }
+    odd_sum=odd_sum+odd_year();
+    int b=(a.year%100)-1;
+    b=(b/4);
+    int c=(a.year%100)-b-1;
+    b=b*2;
+    odd_sum=odd_sum+b+c+1;
+    odd_sum=(odd_sum%7);
+    int f=odd_sum+1,n=odd_month(a.month);
+    printf("\nSun\tMon\tTue\tWed\tThu\tFri\tSat\n");
+    for(int i=1;i<=f-1;i++){
+        printf(" \t");
+    }
+    for(int j=f;j<=7;j++){
+        printf("%d\t",j-f+1);
+    }
+    printf("\n");
+    for(int i=1;i<=5;i++){
+        int r=9-f+((i-1)*7);
+        for(int j=1;j<=7;j++){
+            if(r+j-1<=n){
+                printf("%d\t",r+j-1);
+            }
+        }
+        printf("\n");
+    }}
+    else{
+        printf("Invalid input\n");
+    }
+    printf("Do you want to continue(y/n):");
+    int ch1;
+    x:
+    ch1=getch();
+    if(ch1=='y' || ch1=='Y' || ch1=='n' || ch1=='N'){
+        printf("%c",ch1);
+        ch=ch1;
+    }
+    else{
+        goto x;
+    }
+    }
+    while(ch=='y' || ch=='Y');
+    printf("\n\n*****Thanks for using the program*****");
+    return 0;
+}
+int odd_month(int b)
+{
+    switch (b){
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            return 31;
+            break;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            return 30;
+            break;
+        case 2:
+            if(leap(a.year)){
+                return 29;
+            }
+            else{
+                return 28;
+            }
+    }
+}
+int leap(int c)
+{
+    if((a.year%4==0 && a.year%100!=0) || a.year%400==0){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+int odd_year()
+{
+    switch(((a.year/100)*100)%400)
+    {
+    case 100:
+        return 5;
+        break;
+    case 200:
+        return 3;
+        break;
+    case 300:
+        return 1;
+        break;
+    case 0:
+        return 0;
+        break;
+    }
+}
